@@ -1,54 +1,83 @@
-# React + TypeScript + Vite
+# Projeto Criptmoedas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto desenvolvido em React + TypeScript, tem o obetivo de facilitar o gerenciamento e listagem de criptomoedas.
 
-Currently, two official plugins are available:
+## Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+É uma aplicação web que permite visualizar e gerenciar criptomoedas de forma simples e eficiente. O projeto foi criado com foco em boas práticas de desenvolvimento, utilizando as tecnologias mais modernas do ecossistema React.
 
-## Expanding the ESLint configuration
+## Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [TailwindCss](https://tailwindcss.com/)
+- [React Router DOM](https://www.npmjs.com/package/react-router-dom)
+- [Axios](https://www.npmjs.com/package/axios#installing)
+- [Docker](https://www.docker.com/)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Estrutura de Pastas — Clean Architecture
+Este projeto segue o padrão Clean Architecture adaptado para aplicações React, promovendo separação de responsabilidades, testabilidade e escalabilidade.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- domain: Onde ficam as regras de negócio puras, entidades e contratos de casos de uso.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- application: Onde ficam os serviços de aplicação e DTOs. A Application depende do domain.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- infrastructure: Implementações concretas, como chamadas HTTP(foi utilizado axios), repositórios, etc. Implementa interfaces de domain e application.
+
+- representation: Tudo relacionado à camada de apresentação (React), incluindo componentes, contextos, páginas e rotas. Consome serviços da application e exibe dados ao usuário.
+
+#### 🚀 Vantagens do Clean Architecture
+ - Baixo acoplamento entre camadas.
+- Alta testabilidade (camadas de domínio e aplicação podem ser testadas isoladamente).
+- Facilidade de manutenção e evolução do projeto.
+- Escalabilidade para projetos grandes.
+
+
+## Testes
+O projeto conta com uma suíte de testes unitários automatizados desenvolvidos com Jest e React Testing Library, garantindo a confiabilidade das principais funcionalidades da aplicação.
+
+#### Tecnologias de Teste
+- Jest — Framework de testes para JavaScript/TypeScript.
+- React Testing Library — Utilizada para testes focados no comportamento do usuário e acessibilidade.
+
+
+
+## Como rodar o projeto
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/milenavms/Projeto-Criptomoedas.git
+   ```
+2. Acesse a pasta do projeto no VSCode:
+3. Instale as dependências:
+   ```bash
+   npm install
+   ```
+4. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+
+### Como rodar os testes
+
+
+## 📸 Imagens da Tela
+
+### 🏠 Tela Inicial
+
+
+### 📄 Tela de Detalhes de uma Criptomoeda
+
+
+### 📱 Responsividade
+
+
+
+> A aplicação é responsiva e funciona bem em dispositivos móveis.
+
+
+Acesse [http://localhost:5173](http://localhost:5173) para visualizar o projeto rodando.
+Acesse [http://localhost:80](http://localhost:5173) para visualizar o projeto rodando com o Docker.
+
+Desenvolvido por [Milena](https://github.com/milenavms)
