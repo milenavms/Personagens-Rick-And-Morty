@@ -33,6 +33,12 @@ Este projeto segue o padrão Clean Architecture adaptado para aplicações React
 - Facilidade de manutenção e evolução do projeto.
 - Escalabilidade para projetos grandes.
 
+## API Pública utilizada
+
+| API               | Descrição                              | Auth     | HTTPS | CORS     |
+|-------------------|----------------------------------------|----------|-------|----------|
+| [CoinGecko](https://www.coingecko.com/en/api) |Preço, mercado e dados sociais do desenvolvedor / criptomoeda   | NÃO  | SIM   | SIM     |
+
 
 ## Testes
 O projeto conta com uma suíte de testes unitários automatizados desenvolvidos com Jest e React Testing Library, garantindo a confiabilidade das principais funcionalidades da aplicação.
