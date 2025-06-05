@@ -49,7 +49,7 @@ O projeto conta com uma suíte de testes unitários automatizados desenvolvidos 
 
 
 
-## Como rodar o projeto
+## Abrindo o projeto
 
 1. Clone o repositório:
    ```bash
@@ -60,9 +60,21 @@ O projeto conta com uma suíte de testes unitários automatizados desenvolvidos 
    ```bash
    npm install
    ```
+
+## Como rodar o projeto
 4. Inicie o servidor de desenvolvimento:
    ```bash
    npm run dev
+   ```
+
+## Como rodar o projeto com o Docker
+1. Iniciar o build:
+   ```bash
+   docker build -t projeto-cripto-moedas .
+   ```
+2. Subir a imagem no container:
+   ```bash
+   docker run -p 80:80 projeto-cripto-moedas
    ```
 
 ### Como rodar os testes
