@@ -11,10 +11,11 @@ Projeto desenvolvido em React + TypeScript, tem o obetivo de facilitar o gerenci
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vitejs.dev/)
-- [TailwindCss](https://tailwindcss.com/)
 - [React Router DOM](https://www.npmjs.com/package/react-router-dom)
 - [Axios](https://www.npmjs.com/package/axios#installing)
 - [Docker](https://www.docker.com/)
+- [TailwindCss](https://tailwindcss.com/)
+- [heroicons](https://heroicons.com/)
 
 ## Estrutura de Pastas — Clean Architecture
 Este projeto segue o padrão Clean Architecture adaptado para aplicações React, promovendo separação de responsabilidades, testabilidade e escalabilidade.
