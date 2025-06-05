@@ -68,13 +68,16 @@ O projeto conta com uma suíte de testes unitários automatizados desenvolvidos 
    ```
 
 ## Como rodar o projeto com o Docker
-1. Iniciar o build:
+1. Iniciar o build EM DEV (Porta padrao do vite: http://localhost:5173):
    ```bash
-   docker build -t projeto-cripto-moedas .
+   ddocker-compose up --build
    ```
-2. Subir a imagem no container:
+2. Iniciar o build EM PRD:
    ```bash
-   docker run -p 80:80 projeto-cripto-moedas
+   docker build -t app-prod .
+   ```
+   ```bash
+   docker run -p 80:80 app-prod
    ```
 
 ### Como rodar os testes
