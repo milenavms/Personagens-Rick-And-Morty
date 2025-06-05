@@ -1,9 +1,10 @@
+import HomePage from "./representation/pages/homePage/home"
 
 function App() {
 
   return (
     <>
-      <h1>Projeto Criptomoedas</h1>
+      <HomePage/>
     </>
   )
 }
