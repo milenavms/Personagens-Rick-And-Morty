@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/NavBar';
-import { mockCryptos } from './mockCryptos';
+import { mockCryptos, mockOptions } from './mockCryptos';
 import Table from '../../components/Table';
+import Autocomplete from '../../components/Autocomplete';
+
+const columns = ['ID', 'Nome', 'Preço', 'Variação', 'Volume', 'Mercado'];
 
 const HomePage: React.FC = () => {
+  const [searchValue,setSearchValue] = useState<string>('');
 
-  const columns = ['ID', 'Nome', 'Preço', 'Variação', 'Volume', 'Mercado'];
+  const handleSelect = (value: string) => {
+     setSearchValue(value);
+  };
+
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //TODO: pesquisa na API
+    setSearchValue(e.target.value);
+  };
 
   return (
-  <body className="font-poppins bg-gray-100 text-gray-900 overflow-x-hidden">
-    <Navbar links={['Home', 'Mercado', 'Sobre']} />
+  <div className="font-poppins bg-gray-100 text-gray-900 overflow-x-hidden min-h-screen">
+    <Navbar 
+      links={[]}  
+      searchButton={
+        <Autocomplete
+        options={mockOptions}
+        value={searchValue}
+        onChange={handleChange}
+        onSelect={handleSelect}
+      />
+      }
+    />
 
     <main className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col gap-6">
      
@@ -24,7 +45,7 @@ const HomePage: React.FC = () => {
         <Table columns={columns} data={mockCryptos} rowsPerPage={10} />
       </div>
     </main>
-</body>
+</div>
 
   );
 };

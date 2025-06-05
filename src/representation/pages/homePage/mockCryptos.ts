@@ -15,3 +15,10 @@ export const mockCryptos: Crypto[] = Array.from({ length: 50 }, (_, i) => ({
   Volume: `${(Math.random() * 1000000).toFixed(0)}`,
   Mercado: `#${Math.floor(Math.random() * 1000)}`,
 }));
+
+
+export const mockOptions = [
+  "Bitcoin",
+  "Ethereum",
+  "Ripple",
+];
