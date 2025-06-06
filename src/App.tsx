@@ -1,10 +1,10 @@
-import HomePage from "./representation/pages/homePage/home"
+import RoutesApp from "./representation/routes/RoutasApp"
 
 function App() {
 
   return (
     <>
-      <HomePage/>
+      <RoutesApp/>
     </>
   )
 }

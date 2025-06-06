@@ -71,7 +71,7 @@ O projeto conta com uma suíte de testes unitários automatizados desenvolvidos 
 ## Como rodar o projeto com o Docker
 1. Iniciar o build EM DEV (Porta padrao do vite: http://localhost:5173):
    ```bash
-   ddocker-compose up --build
+   docker-compose up --build
    ```
 2. Iniciar o build EM PRD:
    ```bash
