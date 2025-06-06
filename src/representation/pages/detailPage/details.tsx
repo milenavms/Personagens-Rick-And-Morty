@@ -1,5 +1,6 @@
 import Breadcrumb from "../../components/Breadcrumb";
 import MainLayout from "../../layout/MainLayout";
+import ImagemCripto from "../../../assets/cripto.png";
 
 const DetailPage = () => {
   const cryptoInfo = [
@@ -41,8 +42,11 @@ const DetailPage = () => {
           </div>
         </div>
 
-        <div className="p-6">
-          IMAGEM
+        <div className="hidden md:flex p-6 justify-center">
+          <img
+            src={ImagemCripto}
+            alt="Imagem de criptomoedas"
+          />
         </div>
       </div>
     </MainLayout>
