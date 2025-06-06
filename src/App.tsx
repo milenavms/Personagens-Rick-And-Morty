@@ -3,9 +3,7 @@ import RoutesApp from "./representation/routes/RoutasApp"
 function App() {
 
   return (
-    <>
-      <RoutesApp/>
-    </>
+    <RoutesApp/>
   )
 }
 
