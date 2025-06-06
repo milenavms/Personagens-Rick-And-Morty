@@ -1,9 +1,12 @@
+import { CoinProvider } from "./representation/context/CoinContext"
 import RoutesApp from "./representation/routes/RoutasApp"
 
 function App() {
 
   return (
-    <RoutesApp/>
+    <CoinProvider>
+      <RoutesApp/>
+    </CoinProvider>
   )
 }
 
