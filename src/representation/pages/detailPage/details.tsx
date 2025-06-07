@@ -1,6 +1,8 @@
 import Breadcrumb from "../../components/Breadcrumb";
 import MainLayout from "../../layout/MainLayout";
 import ImagemCripto from "../../../assets/cripto.png";
+import CardContent from "../../components/CardContent";
+
 
 const DetailPage = () => {
   const cryptoInfo = [
@@ -13,7 +15,7 @@ const DetailPage = () => {
 
   return (
     <MainLayout>
-      <div className="bg-white rounded-2xl">
+     <CardContent>
         <h2 className="font-medium sm:font-semibold sm:text-2xl p-4 sm:p-8">
           Detalhes da criptomoeda
         </h2>
@@ -25,30 +27,34 @@ const DetailPage = () => {
             ]}
           />
         </div>
-      </div>
+      </CardContent>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-2xl">
-        <div className="p-6">
-          <h3 className=" text-base font-medium sm:text-2xl p-4 sm:px-8">
-            <span className="text-indigo-500 px-2">#</span>
-            Nome da criptomoeda
-          </h3>
-          <div className="px-4 sm:px-8 py-4 space-y-3 text-gray-700 text-sm sm:text-base">
-            {cryptoInfo.map((item, index) => (
-              <p key={index}>
-                <strong>{item.label}:</strong> {item.value}
-              </p>
-            ))}
+      <CardContent>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-6">
+            <h3 className=" text-base font-medium sm:text-2xl p-4 sm:px-8">
+              <span className="text-indigo-500 px-2">#</span>
+              Nome da criptomoeda
+            </h3>
+            <div className="px-4 sm:px-8 py-4 space-y-3 text-sm sm:text-base">
+              {cryptoInfo.map((item, index) => (
+                <p key={index}>
+                  <strong>{item.label}:</strong> {item.value}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <div className="hidden md:flex p-6 justify-center">
+            <img
+              src={ImagemCripto}
+              alt="Imagem de criptomoedas"
+            />
           </div>
         </div>
+      </CardContent>
 
-        <div className="hidden md:flex p-6 justify-center">
-          <img
-            src={ImagemCripto}
-            alt="Imagem de criptomoedas"
-          />
-        </div>
-      </div>
+      
     </MainLayout>
   );
 };

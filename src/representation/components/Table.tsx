@@ -15,7 +15,7 @@ const Table: React.FC<TableProps> = ({ columns, data, rowsPerPage = 10 }) => {
   const currentData = data.slice(startIndex, startIndex + rowsPerPage);
 
   return (
-    <div className="overflow-x-auto bg-white rounded-2xl">
+    <div className="overflow-x-auto rounded-2xl">
       <table className="min-w-full text-sm m-4">
         <thead>
           <tr>
@@ -28,7 +28,10 @@ const Table: React.FC<TableProps> = ({ columns, data, rowsPerPage = 10 }) => {
         </thead>
         <tbody>
           {currentData.map((row, i) => (
-            <tr key={i} className="hover:bg-gray-50">
+            <tr
+              key={i}
+              className="hover:bg-[var(--bg-surface-hover)] transition-colors"
+            >
               {columns.map((col) => (
                 <td key={col} className="px-4 py-2 border-b">
                   {row[col]}

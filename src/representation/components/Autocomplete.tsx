@@ -50,17 +50,17 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
         }}
         onFocus={() => setShowOptions(true)}
         placeholder={placeholder}
-        className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400"
+        className="w-full pl-10 pr-4 py-3 rounded-md border  border-[var(--border-base)] shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 bg-[var(--bg-surface)] text-[var(--text-base)]"
       />
 
       {showOptions && (
-        <ul className="absolute z-10 w-full max-h-60 overflow-auto bg-white border border-gray-300 rounded-md mt-1 shadow-lg">
+        <ul className="absolute z-10 w-full max-h-60 overflow-auto bg-[var(--bg-surface)] text-[var(--text-base)] border border-[var(--border-base)] rounded-md mt-1 shadow-lg">
           {options.length > 0 ? (
             options.map((option, idx) => (
               <li
                 key={idx}
                 onClick={() => handleSelect(option)}
-                className="cursor-pointer px-4 py-2 hover:bg-indigo-100"
+                className="cursor-pointer px-4 py-2 hover:bg-[var(--bg-surface-hover)]"
               >
                 {option}
               </li>

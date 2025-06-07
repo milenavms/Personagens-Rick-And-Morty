@@ -2,7 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Variáveis de tema */
+/* padrão: claro */
+:root {
+  --bg-surface: theme(colors.white);
+  --bg-surface-hover: theme(colors.gray.100);         
+  --text-base: theme(colors.gray.900);
+  --border-base: theme(colors.gray.100);
+}
+
+/* no escuro */
+html.dark {
+  --bg-surface: theme(colors.gray.700);
+  --bg-surface-hover: theme(colors.gray.800);     
+  --text-base: theme(colors.gray.100);
+  --border-base: theme(colors.gray.800);
+}
+
 body {
   margin: 0;
   @apply font-poppins;
+  background-color: var(--bg-surface);
+  color: var(--text-base);
+  border: var(--border-base);
 }
+
+body:hover {
+  background-color: var(--bg-surface-hover);
+}
+
+
+
