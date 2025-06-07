@@ -14,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ links, searchButton, toogleButton }) =>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center ">
         <Link to={"/"}>
           <h1 className="text-xl font-bold decoration-indigo-500 underline uppercase">
-            Criptomoedas
+            Detalhes
           </h1>
         </Link>
         <ul className="hidden md:flex justify-center items-center space-x-6 text-sm font-medium">

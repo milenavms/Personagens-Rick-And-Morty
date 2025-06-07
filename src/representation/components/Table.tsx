@@ -7,7 +7,9 @@ type TableProps = {
   rowsPerPage?: number;
 };
 
-const Table: React.FC<TableProps> = ({ columns, data, rowsPerPage = 10 }) => {
+const MAX_TABLE = 20
+
+const Table: React.FC<TableProps> = ({ columns, data, rowsPerPage = MAX_TABLE }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(data.length / rowsPerPage);

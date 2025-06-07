@@ -17,7 +17,7 @@ const DetailPage = () => {
     <MainLayout>
      <CardContent>
         <h2 className="font-medium sm:font-semibold sm:text-2xl p-4 sm:p-8">
-          Detalhes da criptomoeda
+          Detalhes
         </h2>
         <div className="px-4 sm:px-8 pb-4">
           <Breadcrumb
@@ -34,7 +34,7 @@ const DetailPage = () => {
           <div className="p-6">
             <h3 className=" text-base font-medium sm:text-2xl p-4 sm:px-8">
               <span className="text-indigo-500 px-2">#</span>
-              Nome da criptomoeda
+              Nome
             </h3>
             <div className="px-4 sm:px-8 py-4 space-y-3 text-sm sm:text-base">
               {cryptoInfo.map((item, index) => (
@@ -48,7 +48,7 @@ const DetailPage = () => {
           <div className="hidden md:flex p-6 justify-center">
             <img
               src={ImagemCripto}
-              alt="Imagem de criptomoedas"
+              alt="Imagem"
             />
           </div>
         </div>

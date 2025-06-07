@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { mockCryptos, mockOptions } from './mockCryptos';
 import Table from '../../components/Table';
 import Autocomplete from '../../components/Autocomplete';
 import MainLayout from '../../layout/MainLayout';
 import CardContent from '../../components/CardContent';
+import type { GetDataRequestDTO } from '../../../application/interfaces/dataDTO';
+import { dataService } from '../../../application/services/dataService';
+import type { IDataResponse } from '../../../domain/IData';
 
 const columns = ['ID', 'Nome', 'Preço', 'Variação', 'Volume', 'Mercado'];
 
@@ -19,6 +22,27 @@ const HomePage: React.FC = () => {
     setSearchValue(e.target.value);
   };
 
+  const [allData, setAllData] = useState<IDataResponse | []>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const query: GetDataRequestDTO = {
+          page: 1,
+        }
+        const response = await dataService.getAllData(query)
+        setAllData(response);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
   return (
     <MainLayout
       searchButton={
@@ -32,7 +56,7 @@ const HomePage: React.FC = () => {
     >
       <CardContent>
         <h2 className="text-lg font-medium sm:font-semibold sm:text-2xl p-4 sm:p-8">
-          Preço das criptomoedas por valor de mercado
+          Informações gerais
         </h2>
       </CardContent>
       

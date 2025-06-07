@@ -1,10 +1,9 @@
-# Projeto Criptmoedas
+# Projeto
 
-Projeto desenvolvido em React + TypeScript, tem o obetivo de facilitar o gerenciamento e listagem de criptomoedas.
+Projeto desenvolvido em React + TypeScript, tem o objetivo de mostrar dados de uma apli pública em uma tabela e ao selecionar e clicar em uma linha específica o usuário será direcionado para uma segunda página de detalhes.
 
-## Sobre o Projeto
+Obs: A princípio o projeto se chamava Projeto-Criptomoedas pois tinha como objetivo consumir uma api de bitcoins, porém a mesma não possui recurso de paginacao disponível em sua versao grátis. Dessa forma, foi substituida pela api rickandmortyapi
 
-É uma aplicação web que permite visualizar e gerenciar criptomoedas de forma simples e eficiente. O projeto foi criado com foco em boas práticas de desenvolvimento, utilizando as tecnologias mais modernas do ecossistema React.
 
 ## Tecnologias Utilizadas
 
@@ -38,7 +37,7 @@ Este projeto segue o padrão Clean Architecture adaptado para aplicações React
 
 | API               | Descrição                              | Auth     | HTTPS | CORS     |
 |-------------------|----------------------------------------|----------|-------|----------|
-| [CoinGecko](https://www.coingecko.com/en/api) |Preço, mercado e dados sociais do desenvolvedor / criptomoeda   | NÃO  | SIM   | SIM     |
+| [rickandmortyapi](https://rickandmortyapi.com/documentation/) |Dados sobre episodios, personagens, etc | NÃO  | SIM   | NAO     |
 
 
 ## Testes
@@ -89,7 +88,7 @@ O projeto conta com uma suíte de testes unitários automatizados desenvolvidos 
 ### 🏠 Tela Inicial
 
 
-### 📄 Tela de Detalhes de uma Criptomoeda
+### 📄 Tela de Detalhes 
 
 
 ### 📱 Responsividade
