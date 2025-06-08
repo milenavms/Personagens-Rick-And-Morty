@@ -53,7 +53,7 @@ O projeto conta com uma suíte de testes unitários automatizados desenvolvidos 
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/milenavms/Projeto-Criptomoedas.git
+   git clone https://github.com/milenavms/Personagens-Rick-And-Morty.git
    ```
 2. Acesse a pasta do projeto no VSCode:
 3. Instale as dependências:
