@@ -5,13 +5,16 @@ export interface IDataResponse {
   results: IDataDetailsResponse[];
 }
 
+export type CharacterStatus = 'Alive' | 'Dead' | 'unknown';
+export type CharacterGender = 'Female' | 'Male' | 'Genderless' | 'unknown';
+
 export interface IDataDetailsResponse {
   id: number;
   name: string;
-  status: string;
+  status: CharacterStatus;
   species: string;
   type: string;
-  gender: string;
+   gender: CharacterGender;
   origin: OriginLocation;
   location: OriginLocation;
   image: string;

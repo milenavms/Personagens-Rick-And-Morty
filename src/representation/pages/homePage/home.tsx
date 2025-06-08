@@ -15,6 +15,7 @@ import DropdownMenu from '../../components/DropdownMenu';
 import DropdownActionWrapper from '../../components/DropdownActionWrapper';
 import TableSkeleton from '../../components/TableSkeleton';
 import Alert from '../../components/Alert';
+import { translateGender, translateStatus } from './default/translater';
 
 
 const HomePage: React.FC = () => {
@@ -41,10 +42,11 @@ const HomePage: React.FC = () => {
     
         const formattedData: FormattedCharacter[] = response?.results?.map((char) => ({
           id: char.id,
+          image: char.image,
           name: char.name,
-          status: char.status,
+          status: translateStatus(char.status),
           species: char.species,
-          gender: char.gender,
+          gender: translateGender(char.gender),
         })) || [];
 
 
@@ -62,26 +64,60 @@ const HomePage: React.FC = () => {
 
   const columns: TableColumn<FormattedCharacter>[] = baseColumns.map(col => {
     if (col.id === 'actions') {
-    return {
-      ...col,
-      render: (row: FormattedCharacter) => (
-        <DropdownActionWrapper item={row}>
-          {(item) => (
-            <DropdownMenu
-              item={item}
-              visible={true}
-              items={[
-                {
-                  label: 'Ver detalhes',
-                  to: `/detalhes/${item.id}`,
-                },
-              ]}
-            />
-          )}
-        </DropdownActionWrapper>
-      ),
-    };
-  }
+      return {
+        ...col,
+        render: (row: FormattedCharacter) => (
+          <DropdownActionWrapper item={row}>
+            {(item) => (
+              <DropdownMenu
+                item={item}
+                visible={true}
+                items={[
+                  {
+                    label: 'Ver detalhes',
+                    to: `/detalhes/${item.id}`,
+                  },
+                ]}
+              />
+            )}
+          </DropdownActionWrapper>
+        ),
+      };
+    }
+
+    if (col.id === 'status') {
+      return {
+        ...col,
+        render: (row: FormattedCharacter) => {
+        let colorClass = 'bg-gray-200 text-gray-800';
+
+        if (row.status === 'Vivo') colorClass = 'bg-green-200 text-green-800';
+        else if (row.status === 'Morto') colorClass = 'bg-red-200 text-red-800';
+
+        return (
+          <span className={`px-2 py-1 text-xs rounded-full font-medium ${colorClass}`}>
+            {row.status}
+          </span>
+        );
+      },
+      };
+    }
+
+    if (col.id === 'image') {
+      return {
+        ...col,
+        render: (row: FormattedCharacter) => {
+      
+        return (
+          <img
+              src={row.image}
+              alt="Imagem do personagem"
+                className="w-10 h-auto rounded"
+          />
+        );
+      },
+      };
+    }
     return col;
   });
 
