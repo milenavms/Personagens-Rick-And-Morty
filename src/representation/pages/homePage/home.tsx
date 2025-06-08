@@ -16,13 +16,16 @@ import DropdownActionWrapper from '../../components/DropdownActionWrapper';
 import TableSkeleton from '../../components/TableSkeleton';
 import Alert from '../../components/Alert';
 import { translateGender, translateStatus } from './default/translater';
+import type { Info } from '../../../domain/IData';
 
 
 const HomePage: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [allData, setAllData] = useState<FormattedCharacter[] | []>([]);
+  const [infoData, setInfoData] = useState<Info | null>(null)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1)
 
   const handleSelect = (value: string) => setSearchValue(value);
 
@@ -31,36 +34,50 @@ const HomePage: React.FC = () => {
     setSearchValue(e.target.value);
   };
 
+  const handleNextPage = () => {
+  if (infoData?.next) {
+    setCurrentPage(currentPage + 1);
+  }
+};
+
+const handlePrevPage = () => {
+  if (infoData?.prev) {
+    setCurrentPage(currentPage - 1);
+  }
+};
+
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const query: GetDataRequestDTO = {
-          page: 1,
-        }
-        const response = await dataService.getAllData(query)
-    
-        const formattedData: FormattedCharacter[] = response?.results?.map((char) => ({
-          id: char.id,
-          image: char.image,
-          name: char.name,
-          status: translateStatus(char.status),
-          species: char.species,
-          gender: translateGender(char.gender),
-        })) || [];
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const query: GetDataRequestDTO = {
+        page: currentPage, 
+      };
+      const response = await dataService.getAllData(query);
 
+      const formattedData: FormattedCharacter[] = response?.results?.map((char) => ({
+        id: char.id,
+        image: char.image,
+        name: char.name,
+        status: translateStatus(char.status),
+        species: char.species,
+        gender: translateGender(char.gender),
+      })) || [];
 
-        setAllData(formattedData);
-        setLoading(false);
-        setError(null);
-      } catch (error) {
-        setError('Ocorreu um erro ao carregar os dados. Tente novamente mais tarde.'+ error);
-        setLoading(false);
-      }
-    };
+      setAllData(formattedData);
+      setInfoData(response?.info);
+      setError(null);
+    } catch (error) {
+      setError('Ocorreu um erro ao carregar os dados. Tente novamente mais tarde.' + error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, []); 
+  fetchData();
+}, [currentPage]);
+
 
   const columns: TableColumn<FormattedCharacter>[] = baseColumns.map(col => {
     if (col.id === 'actions') {
@@ -143,17 +160,25 @@ const HomePage: React.FC = () => {
             {loading ? (
               <TableSkeleton columnsCount={columns.length} />
             ) : (
-              <Table columns={columns} data={allData} rowsPerPage={20} />
+              <Table 
+                columns={columns} 
+                data={allData}
+                totalPages={infoData?.pages || 1}
+                currentPage={currentPage}  
+                onPrevPage={handlePrevPage}  
+                onNextPage={handleNextPage} 
+                
+              />
             )}
           </div>
         </CardContent>
 
         {error && (
           <Alert
-          type="error"
-          message={error}
-          onClose={() => setError(null)}
-        />
+            type="error"
+            message={error}
+            onClose={() => setError(null)}
+          />
         )}
 
     </MainLayout>

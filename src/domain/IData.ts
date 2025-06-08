@@ -23,7 +23,7 @@ export interface IDataDetailsResponse {
   created: string; 
 }
 
-interface Info {
+export interface Info {
   count: number;
   pages: number;
   next: string | null;

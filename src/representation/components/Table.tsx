@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import { ChevronLeftIcon, ChevronRightIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 
 export type TableColumn<T> = {
@@ -8,25 +8,24 @@ export type TableColumn<T> = {
   render?: (row: T) => React.ReactNode;
 };
 
+
 type TableProps<T extends Record<string, any>> = {
   columns: readonly TableColumn<T>[];
   data: T[];
-  rowsPerPage?: number;
+  currentPage: number;
+  totalPages: number;
+  onNextPage: () => void;
+  onPrevPage: () => void;
 };
-
-const MAX_TABLE = 10;
 
 const Table = <T extends Record<string, any>>({
   columns,
   data,
-  rowsPerPage = MAX_TABLE,
+  currentPage,
+  totalPages,
+  onNextPage,
+  onPrevPage,
 }: TableProps<T>) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(data.length / rowsPerPage);
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const currentData = data.slice(startIndex, startIndex + rowsPerPage);
-
   const colSpan = columns.length;
 
   return (
@@ -53,12 +52,12 @@ const Table = <T extends Record<string, any>>({
               </td>
             </tr>
           ) : (
-            currentData.map((row, i) => (
+            data.map((row, i) => (
               <tr key={i} className="hover:bg-[var(--bg-surface-hover)] transition-colors">
                 {columns.map((col) => (
                   <td key={String(col.id)} className="px-4 py-2 border-b">
                     {col.isAction && col.render
-                      ? col.render(row) // INFO: renderiza conteúdo customizado
+                      ? col.render(row)
                       : row[col.id as keyof T]}
                   </td>
                 ))}
@@ -74,7 +73,7 @@ const Table = <T extends Record<string, any>>({
           <button
             className="p-2 bg-indigo-500 rounded disabled:opacity-50"
             disabled={currentPage === 1}
-            onClick={() => setCurrentPage((p) => p - 1)}
+            onClick={onPrevPage}
           >
             <ChevronLeftIcon className="h-5 w-5 text-white" />
           </button>
@@ -86,7 +85,7 @@ const Table = <T extends Record<string, any>>({
           <button
             className="p-2 bg-indigo-500 rounded disabled:opacity-50"
             disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((p) => p + 1)}
+            onClick={onNextPage}
           >
             <ChevronRightIcon className="h-5 w-5 text-white" />
           </button>
@@ -95,5 +94,6 @@ const Table = <T extends Record<string, any>>({
     </div>
   );
 };
+
 
 export default Table;
