@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 
-type TableProps = {
-  columns: string[];
-  data: Array<Record<string, string | number>>;
+export type TableColumn<T> = {
+  id: string;
+  value: string;
+  isAction?: boolean;
+  render?: (row: T) => React.ReactNode;
+};
+
+type TableProps<T extends Record<string, any>> = {
+  columns: readonly TableColumn<T>[];
+  data: T[];
   rowsPerPage?: number;
 };
 
-const MAX_TABLE = 20
+const MAX_TABLE = 10;
 
-const Table: React.FC<TableProps> = ({ columns, data, rowsPerPage = MAX_TABLE }) => {
+const Table = <T extends Record<string, any>>({
+  columns,
+  data,
+  rowsPerPage = MAX_TABLE,
+}: TableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(data.length / rowsPerPage);
@@ -22,21 +33,23 @@ const Table: React.FC<TableProps> = ({ columns, data, rowsPerPage = MAX_TABLE })
         <thead>
           <tr>
             {columns.map((col) => (
-              <th key={col} className="px-4 py-2 border-b font-semibold text-left">
-                {col}
+              <th
+                key={String(col.id)}
+                className="px-4 py-2 border-b font-semibold text-left"
+              >
+                {col.value}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {currentData.map((row, i) => (
-            <tr
-              key={i}
-              className="hover:bg-[var(--bg-surface-hover)] transition-colors"
-            >
+            <tr key={i} className="hover:bg-[var(--bg-surface-hover)] transition-colors">
               {columns.map((col) => (
-                <td key={col} className="px-4 py-2 border-b">
-                  {row[col]}
+                <td key={String(col.id)} className="px-4 py-2 border-b">
+                  {col.isAction && col.render
+                    ? col.render(row) //INFO: renderiza conteúdo customizado
+                    : row[col.id as keyof T]} 
                 </td>
               ))}
             </tr>
@@ -47,25 +60,25 @@ const Table: React.FC<TableProps> = ({ columns, data, rowsPerPage = MAX_TABLE })
       {/* Pagination */}
       <div className="flex justify-end mt-4 space-x-2 m-4 items-center">
         <button
-            className="p-2 bg-indigo-500 rounded disabled:opacity-50"
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((p) => p - 1)}
+          className="p-2 bg-indigo-500 rounded disabled:opacity-50"
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((p) => p - 1)}
         >
-            <ChevronLeftIcon className="h-5 w-5 text-white" />
+          <ChevronLeftIcon className="h-5 w-5 text-white" />
         </button>
 
         <span className="px-3 py-1 text-sm font-medium">
-            {currentPage} / {totalPages}
+          {currentPage} / {totalPages}
         </span>
 
         <button
-            className="p-2 bg-indigo-500 rounded disabled:opacity-50"
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((p) => p + 1)}
+          className="p-2 bg-indigo-500 rounded disabled:opacity-50"
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage((p) => p + 1)}
         >
-            <ChevronRightIcon className="h-5 w-5 text-white" />
+          <ChevronRightIcon className="h-5 w-5 text-white" />
         </button>
-        </div>
+      </div>
     </div>
   );
 };

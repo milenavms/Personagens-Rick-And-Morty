@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { mockCryptos, mockOptions } from './mockCryptos';
-import Table from '../../components/Table';
+
+import { dataService } from '../../../application/services/dataService';
+import type { GetDataRequestDTO } from '../../../application/interfaces/dataDTO';
+
+import Table, { type TableColumn } from '../../components/Table';
 import Autocomplete from '../../components/Autocomplete';
 import MainLayout from '../../layout/MainLayout';
 import CardContent from '../../components/CardContent';
-import type { GetDataRequestDTO } from '../../../application/interfaces/dataDTO';
-import { dataService } from '../../../application/services/dataService';
-import type { IDataResponse } from '../../../domain/IData';
 
-const columns = ['ID', 'Nome', 'Preço', 'Variação', 'Volume', 'Mercado'];
+import { mockOptions } from './mockCryptos';
+import type { FormattedCharacter } from './default/Types';
+import { baseColumns } from './default/baseColumns';
+import DropdownMenu from '../../components/DropdownMenu';
+import DropdownActionWrapper from '../../components/DropdownActionWrapper';
+
 
 const HomePage: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
+  const [allData, setAllData] = useState<FormattedCharacter[] | []>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleSelect = (value: string) => {
-    setSearchValue(value);
-  };
+  const handleSelect = (value: string) => setSearchValue(value);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // TODO: Fazer busca na API
     setSearchValue(e.target.value);
   };
 
-  const [allData, setAllData] = useState<IDataResponse | []>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +35,17 @@ const HomePage: React.FC = () => {
           page: 1,
         }
         const response = await dataService.getAllData(query)
-        setAllData(response);
+    
+        const formattedData: FormattedCharacter[] = response?.results?.map((char) => ({
+          id: char.id,
+          name: char.name,
+          status: char.status,
+          species: char.species,
+          gender: char.gender,
+        })) || [];
+
+
+        setAllData(formattedData);
         setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
@@ -42,6 +55,31 @@ const HomePage: React.FC = () => {
 
     fetchData();
   }, []); 
+
+  const columns: TableColumn<FormattedCharacter>[] = baseColumns.map(col => {
+    if (col.id === 'actions') {
+    return {
+      ...col,
+      render: (row: FormattedCharacter) => (
+        <DropdownActionWrapper item={row}>
+          {(item) => (
+            <DropdownMenu
+              item={item}
+              visible={true}
+              items={[
+                {
+                  label: 'Ver detalhes',
+                  to: `/detalhes/${item.id}`,
+                },
+              ]}
+            />
+          )}
+        </DropdownActionWrapper>
+      ),
+    };
+  }
+    return col;
+  });
 
   return (
     <MainLayout
@@ -62,7 +100,7 @@ const HomePage: React.FC = () => {
       
        <CardContent>
         <div className="overflow-x-auto">
-          <Table columns={columns} data={mockCryptos} rowsPerPage={10} />
+          <Table columns={columns} data={allData} rowsPerPage={20} />
         </div>
        </CardContent>
 
