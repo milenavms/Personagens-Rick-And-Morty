@@ -18,8 +18,8 @@ type AlertProps = {
 };
 
 const baseStyles = 'px-4 py-3 rounded border text-sm flex items-center shadow-lg';
-const positionStyles = 'absolute bottom-4 left-4 z-50 w-full px-4';
-const widthStyles = 'max-w-md w-full';
+const positionStyles = 'fixed bottom-4 left-4 z-50';
+const widthStyles = 'w-full max-w-[calc(100vw-2rem)] sm:max-w-sm';
 
 const alertStyles: Record<AlertType, string> = {
   success: 'bg-green-100 text-green-800 border-green-400',
