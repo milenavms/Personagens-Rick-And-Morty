@@ -14,7 +14,7 @@ export interface IDataDetailsResponse {
   status: CharacterStatus;
   species: string;
   type: string;
-   gender: CharacterGender;
+  gender: CharacterGender;
   origin: OriginLocation;
   location: OriginLocation;
   image: string;

@@ -1,4 +1,7 @@
-export const translateStatus = (status: string): string => {
+export const translateStatus = (status?: string): string => {
+
+  if(!status) return "-";
+
   const statusMap: Record<string, string> = {
     Alive: 'Vivo',
     Dead: 'Morto',
@@ -8,7 +11,10 @@ export const translateStatus = (status: string): string => {
 };
 
 
-export const translateGender = (gender: string): string => {
+export const translateGender = (gender?: string): string => {
+  
+  if(!gender) return "-";
+
   const genderMap: Record<string, string> = {
     Female: 'Feminino',
     Male: 'Masculino',

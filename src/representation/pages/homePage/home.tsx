@@ -48,34 +48,34 @@ const handlePrevPage = () => {
 
 
   useEffect(() => {
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const query: GetDataRequestDTO = {
-        page: currentPage, 
-      };
-      const response = await dataService.getAllData(query);
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const query: GetDataRequestDTO = {
+          page: currentPage, 
+        };
+        const response = await dataService.getAllData(query);
 
-      const formattedData: FormattedCharacter[] = response?.results?.map((char) => ({
-        id: char.id,
-        image: char.image,
-        name: char.name,
-        status: translateStatus(char.status),
-        species: char.species,
-        gender: translateGender(char.gender),
-      })) || [];
+        const formattedData: FormattedCharacter[] = response?.results?.map((char) => ({
+          id: char.id,
+          image: char.image,
+          name: char.name,
+          status: translateStatus(char.status),
+          species: char.species,
+          gender: translateGender(char.gender),
+        })) || [];
 
-      setAllData(formattedData);
-      setInfoData(response?.info);
-      setError(null);
-    } catch (error) {
-      setError('Ocorreu um erro ao carregar os dados. Tente novamente mais tarde.' + error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        setAllData(formattedData);
+        setInfoData(response?.info);
+        setError(null);
+      } catch (error) {
+        setError('Ocorreu um erro ao carregar os dados. Tente novamente mais tarde.' + error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchData();
+    fetchData();
 }, [currentPage]);
 
 
@@ -129,7 +129,7 @@ const handlePrevPage = () => {
           <img
               src={row.image}
               alt="Imagem do personagem"
-                className="w-10 h-auto rounded"
+              className="w-10 h-auto rounded"
           />
         );
       },
