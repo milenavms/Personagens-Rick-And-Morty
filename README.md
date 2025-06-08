@@ -2,8 +2,6 @@
 
 Projeto desenvolvido em React + TypeScript, tem o objetivo de mostrar dados de uma apli pública em uma tabela e ao selecionar e clicar em uma linha específica o usuário será direcionado para uma segunda página de detalhes.
 
-Obs: A princípio o projeto se chamava Projeto-Criptomoedas pois tinha como objetivo consumir uma api de bitcoins, porém a mesma não possui recurso de paginacao disponível em sua versao grátis. Dessa forma, foi substituida pela api rickandmortyapi
-
 
 ## Tecnologias Utilizadas
 
