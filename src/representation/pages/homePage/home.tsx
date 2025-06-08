@@ -13,12 +13,15 @@ import type { FormattedCharacter } from './default/Types';
 import { baseColumns } from './default/baseColumns';
 import DropdownMenu from '../../components/DropdownMenu';
 import DropdownActionWrapper from '../../components/DropdownActionWrapper';
+import TableSkeleton from '../../components/TableSkeleton';
+import Alert from '../../components/Alert';
 
 
 const HomePage: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [allData, setAllData] = useState<FormattedCharacter[] | []>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSelect = (value: string) => setSearchValue(value);
 
@@ -47,8 +50,9 @@ const HomePage: React.FC = () => {
 
         setAllData(formattedData);
         setLoading(false);
+        setError(null);
       } catch (error) {
-        console.error("Erro ao buscar dados:", error);
+        setError('Ocorreu um erro ao carregar os dados. Tente novamente mais tarde.'+ error);
         setLoading(false);
       }
     };
@@ -99,10 +103,22 @@ const HomePage: React.FC = () => {
       </CardContent>
       
        <CardContent>
-        <div className="overflow-x-auto">
-          <Table columns={columns} data={allData} rowsPerPage={20} />
-        </div>
-       </CardContent>
+          <div className="overflow-x-auto">
+            {loading ? (
+              <TableSkeleton columnsCount={columns.length} />
+            ) : (
+              <Table columns={columns} data={allData} rowsPerPage={20} />
+            )}
+          </div>
+        </CardContent>
+
+        {error && (
+          <Alert
+          type="error"
+          message={error}
+          onClose={() => setError(null)}
+        />
+        )}
 
     </MainLayout>
   );

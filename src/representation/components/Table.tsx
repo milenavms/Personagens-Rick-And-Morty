@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 
 export type TableColumn<T> = {
   id: string;
@@ -27,6 +27,8 @@ const Table = <T extends Record<string, any>>({
   const startIndex = (currentPage - 1) * rowsPerPage;
   const currentData = data.slice(startIndex, startIndex + rowsPerPage);
 
+  const colSpan = columns.length;
+
   return (
     <div className="overflow-x-auto rounded-2xl">
       <table className="min-w-full text-sm m-4">
@@ -43,42 +45,53 @@ const Table = <T extends Record<string, any>>({
           </tr>
         </thead>
         <tbody>
-          {currentData.map((row, i) => (
-            <tr key={i} className="hover:bg-[var(--bg-surface-hover)] transition-colors">
-              {columns.map((col) => (
-                <td key={String(col.id)} className="px-4 py-2 border-b">
-                  {col.isAction && col.render
-                    ? col.render(row) //INFO: renderiza conteúdo customizado
-                    : row[col.id as keyof T]} 
-                </td>
-              ))}
+          {data.length === 0 ? (
+            <tr>
+              <td colSpan={colSpan} className="py-20 text-center text-gray-500">
+                <ExclamationTriangleIcon className="mx-auto mb-4 h-16 w-16 text-red-500" />
+                Nenhum dado disponível.
+              </td>
             </tr>
-          ))}
+          ) : (
+            currentData.map((row, i) => (
+              <tr key={i} className="hover:bg-[var(--bg-surface-hover)] transition-colors">
+                {columns.map((col) => (
+                  <td key={String(col.id)} className="px-4 py-2 border-b">
+                    {col.isAction && col.render
+                      ? col.render(row) // INFO: renderiza conteúdo customizado
+                      : row[col.id as keyof T]}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
 
       {/* Pagination */}
-      <div className="flex justify-end mt-4 space-x-2 m-4 items-center">
-        <button
-          className="p-2 bg-indigo-500 rounded disabled:opacity-50"
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((p) => p - 1)}
-        >
-          <ChevronLeftIcon className="h-5 w-5 text-white" />
-        </button>
+      {data.length > 0 && (
+        <div className="flex justify-end mt-4 space-x-2 m-4 items-center">
+          <button
+            className="p-2 bg-indigo-500 rounded disabled:opacity-50"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+          >
+            <ChevronLeftIcon className="h-5 w-5 text-white" />
+          </button>
 
-        <span className="px-3 py-1 text-sm font-medium">
-          {currentPage} / {totalPages}
-        </span>
+          <span className="px-3 py-1 text-sm font-medium">
+            {currentPage} / {totalPages}
+          </span>
 
-        <button
-          className="p-2 bg-indigo-500 rounded disabled:opacity-50"
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((p) => p + 1)}
-        >
-          <ChevronRightIcon className="h-5 w-5 text-white" />
-        </button>
-      </div>
+          <button
+            className="p-2 bg-indigo-500 rounded disabled:opacity-50"
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+          >
+            <ChevronRightIcon className="h-5 w-5 text-white" />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
