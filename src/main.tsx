@@ -4,7 +4,7 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 
 createRoot(document.getElementById('root')!).render(
-   <BrowserRouter>
+   <BrowserRouter basename="/Personagens-Rick-And-Morty">
     <App />
   </BrowserRouter>
 )
