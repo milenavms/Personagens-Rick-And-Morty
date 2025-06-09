@@ -7,8 +7,8 @@ import { dataService } from "../../../application/services/dataService";
 import Alert from "../../components/Alert";
 import { translateGender, translateStatus } from "../homePage/default/translater";
 import type { IDataDetailsResponse } from "../../../domain/IData";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import Skelaton from "../../components/Skelaton";
+import CharacterImage from "../../components/CharacterImage";
 
 
 const DetailPage = () => {
@@ -34,7 +34,7 @@ const DetailPage = () => {
     };
   
     fetchDataDetail();
-  }, []);
+  }, [id]);
 
   const details = [
     { label: "Status", value: translateStatus(data?.status)},
@@ -63,36 +63,29 @@ const DetailPage = () => {
 
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6">
+          <section aria-labelledby="person-details-heading" className="p-6">
             <h3 className=" text-base font-medium sm:text-2xl p-4 sm:px-8">
               <span className="text-indigo-500 px-2">#</span>
               ID: {loading ? <Skelaton/> : data?.id }
             </h3>
-            <div className="px-4 sm:px-8 py-4 space-y-3 text-sm sm:text-base">
+            <dl className="px-4 sm:px-8 py-4 space-y-3 text-sm sm:text-base">
               {details.map((item, index) => (
-                <p key={index}>
-                  <strong>{item.label}:</strong> {loading ? <Skelaton/> : item.value}
-                </p>
+                <div key={index}>
+                  <dt className="font-semibold">{item.label}</dt>
+                  <dd>{loading ? <Skelaton /> : item.value}</dd>
+                </div>
               ))}
-            </div>
-          </div>
+            </dl>
+          </section>
 
           <div className="md:flex p-6 justify-center ">
-            {
-            loading ?
-            <Skelaton width={300} height={100}/> 
-            : data?.image ?
-             <img
+            <figure>
+              <CharacterImage
               src={data?.image}
-              alt="Imagem do personagem"
-              className="h-auto rounded"
-            />
-            :
-            <div className="w-full h-full bg-gray-100 flex flex-col items-center justify-center text-center  py-5 rounded">
-              <ExclamationTriangleIcon className="mx-auto mb-4 h-16 w-16 text-red-500" />
-              Erro ao carregar imagem.
-            </div>
-            }
+              alt={`Imagem do personagem ${data?.name ?? 'desconhecido'}`}
+              loading={loading}
+              />
+            </figure>
           </div>
         </div>
 

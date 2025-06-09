@@ -128,7 +128,7 @@ const handlePrevPage = () => {
         return (
           <img
               src={row.image}
-              alt="Imagem do personagem"
+              alt={`Imagem de ${row.name}`}
               className="w-10 h-auto rounded"
           />
         );
@@ -150,7 +150,10 @@ const handlePrevPage = () => {
       }
     >
       <CardContent>
-        <h2 className="text-lg font-medium sm:font-semibold sm:text-2xl p-4 sm:p-8">
+        <h2 
+        id="page-title" 
+        className="text-lg font-medium sm:font-semibold sm:text-2xl p-4 sm:p-8"
+        >
           Informações gerais
         </h2>
       </CardContent>

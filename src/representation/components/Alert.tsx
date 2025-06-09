@@ -5,6 +5,7 @@ import {
   ExclamationTriangleIcon,
   ExclamationCircleIcon,
   InformationCircleIcon,
+  XMarkIcon,
 } from '@heroicons/react/24/solid';
 
 export type AlertType = 'success' | 'error' | 'warning' | 'info';
@@ -29,11 +30,12 @@ const alertStyles: Record<AlertType, string> = {
 };
 
 const iconMap: Record<AlertType, React.JSX.Element> = {
-  success: <CheckCircleIcon className="w-10 h-10 mr-2 flex-shrink-0" />,
-  error: <ExclamationTriangleIcon className="w-10 h-10 mr-2 flex-shrink-0" />,
-  warning: <ExclamationCircleIcon className="w-10 h-10 mr-2 flex-shrink-0" />,
-  info: <InformationCircleIcon className="w-10 h-10 mr-2 flex-shrink-0" />,
+  success: <CheckCircleIcon className="w-10 h-10 mr-2 flex-shrink-0" aria-hidden="true" focusable="false" />,
+  error: <ExclamationTriangleIcon className="w-10 h-10 mr-2 flex-shrink-0" aria-hidden="true" focusable="false" />,
+  warning: <ExclamationCircleIcon className="w-10 h-10 mr-2 flex-shrink-0" aria-hidden="true" focusable="false" />,
+  info: <InformationCircleIcon className="w-10 h-10 mr-2 flex-shrink-0" aria-hidden="true" focusable="false" />,
 };
+
 
 const Alert: React.FC<AlertProps> = ({
   type = 'info',
@@ -57,6 +59,16 @@ const Alert: React.FC<AlertProps> = ({
     >
       {withIcon && iconMap[type]}
       <span>{message}</span>
+
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="ml-auto text-sm text-gray-500 hover:text-gray-700"
+          aria-label="Fechar alerta"
+        >
+          <XMarkIcon className="w-5 h-5" aria-hidden="true" focusable="false" /> 
+        </button>
+      )}
     </div>
   );
 };

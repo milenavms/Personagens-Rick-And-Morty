@@ -37,6 +37,7 @@ const Table = <T extends Record<string, any>>({
               <th
                 key={String(col.id)}
                 className="px-4 py-2 border-b font-semibold text-left"
+                scope="col" 
               >
                 {col.value}
               </th>
@@ -74,6 +75,8 @@ const Table = <T extends Record<string, any>>({
             className="p-2 bg-indigo-500 rounded disabled:opacity-50"
             disabled={currentPage === 1}
             onClick={onPrevPage}
+            aria-label="Página anterior" 
+            title="Página anterior" 
           >
             <ChevronLeftIcon className="h-5 w-5 text-white" />
           </button>
@@ -86,6 +89,8 @@ const Table = <T extends Record<string, any>>({
             className="p-2 bg-indigo-500 rounded disabled:opacity-50"
             disabled={currentPage === totalPages}
             onClick={onNextPage}
+            aria-label="Próxima página"
+            title="Próxima página"
           >
             <ChevronRightIcon className="h-5 w-5 text-white" />
           </button>
