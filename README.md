@@ -2,6 +2,8 @@
 
 Projeto desenvolvido em React + TypeScript, tem o objetivo de mostrar dados de uma apli pública em uma tabela e ao selecionar e clicar em uma linha específica o usuário será direcionado para uma segunda página de detalhes.
 
+Acesse a página web:[Personagens-Rick-And-Morty](https://milenavms.github.io/Personagens-Rick-And-Morty/)
+
 
 ## Tecnologias Utilizadas
 
@@ -80,6 +82,15 @@ O projeto conta com uma suíte de testes unitários automatizados desenvolvidos 
 
 ### Como rodar os testes
 
+
+### Deploy Manual para GitHub Pages - PipeLine CI/CD
+Como funciona o deploy manual no Actions do GitHib.
+Apos comitar novas features:
+- Acesse o repositório no GitHub,
+- Clique na aba "Actions",
+- Selecione o workflow de deploy, onde irá listar o: "Deploy para GitHub Pages" (deploy.yml)
+- Clique em "Run workflow" para iniciar o processo de deploy.
+- Acesse o: https://milenavms.github.io/Personagens-Rick-And-Morty/
 
 ## 📸 Imagens da Tela
 
